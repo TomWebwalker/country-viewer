@@ -4,9 +4,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
 import { AppComponent } from './app.component';
-import { ListEffects } from './store/list.effects';
-import { listReducer } from './store/list.reducer';
+import { CountryCardComponent } from './country-card/country-card.component';
+import { CountryListEffects, countryListReducer } from './store';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,12 +19,18 @@ import { listReducer } from './store/list.reducer';
     HttpClientModule,
     StoreModule.forRoot(
       {
-        list: listReducer,
+        countryList: countryListReducer,
       },
       {}
     ),
     BrowserAnimationsModule,
-    EffectsModule.forRoot([ListEffects]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
+    EffectsModule.forRoot([CountryListEffects]),
+    CountryCardComponent,
+    ScrollingModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
