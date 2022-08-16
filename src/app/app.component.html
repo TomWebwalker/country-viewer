@@ -1,1 +1,8 @@
-<pre>{{ countryList$ | async | json }}</pre>
+<ng-container *ngIf="countryList$ | async as countryList">
+    <div class="content-wrapper">
+  <app-country-card
+        class="mat-elevation-z2"
+    *ngFor="let country of countryList"
+    [country]="country"></app-country-card>
+</div>    
+</ng-container>
