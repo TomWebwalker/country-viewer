@@ -2,15 +2,8 @@
     width: 100%;
 }
 
-.container-viewport {
-  height: 100%;
-}
-
-
 .content-wrapper {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    grid-column-gap: 8px;
-    grid-row-gap: 8px;
-    }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
