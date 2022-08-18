@@ -10,6 +10,8 @@ import { AppComponent } from './app.component';
 import { CountryCardComponent } from './country-card/country-card.component';
 import { CountryListEffects, countryListReducer } from './store';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatSelectModule } from "@angular/material/select";
 
 
 @NgModule({
@@ -31,6 +33,8 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     EffectsModule.forRoot([CountryListEffects]),
     CountryCardComponent,
     ScrollingModule,
+    MatFormFieldModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,8 +1,16 @@
+<mat-form-field appearance="fill">
+  <mat-label>Region</mat-label>
+  <mat-select>
+    <mat-option *ngFor="let region of regions$ | async" [value]="region">
+      {{region}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
 <ng-container *ngIf="countryList$ | async as countryList">
     <div class="content-wrapper">
   <app-country-card
         class="mat-elevation-z2"
     *ngFor="let country of countryList"
     [country]="country"></app-country-card>
-</div>    
+</div>
 </ng-container>

@@ -1,4 +1,4 @@
-import { Country } from './../typings/country';
+import { Country } from '../typings/country';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
