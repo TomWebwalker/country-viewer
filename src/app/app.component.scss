@@ -1,9 +1,15 @@
 :host {
-    width: 100%;
+  width: 100%;
+}
+
+.container {
+  padding: 8px;
 }
 
 .content-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  overflow: hidden;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 16px;
+  grid-row-gap: 16px;
 }
