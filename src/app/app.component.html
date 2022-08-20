@@ -1,5 +1,10 @@
 <div class="container">
-  <div style="display: flex; justify-content: flex-end">
+
+  <form [formGroup]="form" style="display: flex">
+    <mat-form-field appearance="fill" style="flex: 1; margin-right: 8px">
+      <mat-label>Country name</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Region</mat-label>
       <mat-select>
@@ -8,7 +13,8 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-  </div>
+  </form>
+
   <ng-container *ngIf="countryList$ | async as countryList">
     <div class="content-wrapper">
       <app-country-card

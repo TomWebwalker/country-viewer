@@ -1,6 +1,6 @@
-import { createReducer, on } from '@ngrx/store';
-import { Country } from '../typings/country';
-import { fetchCountryListSuccess } from './country-list.actions';
+import { createReducer, on } from "@ngrx/store";
+import { Country } from "../typings/country";
+import { fetchCountryListSuccess, filterCountryList } from "./country-list.actions";
 
 export interface CountryListStore {
   countries: Country[],
@@ -11,16 +11,25 @@ export interface CountryListStore {
 export const initialState: CountryListStore = {
   countries: [],
   visibleCountries: [],
-  regions: [],
+  regions: []
 };
 
 export const countryListReducer = createReducer(
   initialState,
-  on(fetchCountryListSuccess, (_, {payload}) => (
+  on(fetchCountryListSuccess, (_, { payload }) => (
     {
       countries: payload,
-      regions: [...new Set(payload.map(({region}) => region))],
+      regions: [...new Set(payload.map(({ region }) => region))],
       visibleCountries: payload
     }
-  ))
+  )),
+  on(filterCountryList, (state, { payload }) => ({
+    countries: state.countries,
+    regions: state.regions,
+    visibleCountries: filterByName(state.countries, payload.name)
+  }))
 );
+
+function filterByName(countries: Country[], name: string): Country[] {
+  return countries.filter(country => country.name.common.toLowerCase().includes(name.toLowerCase()));
+}
