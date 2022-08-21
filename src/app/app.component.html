@@ -7,7 +7,8 @@
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Region</mat-label>
-      <mat-select>
+      <mat-select formControlName="region">
+        <mat-option [value]="null">All</mat-option>
         <mat-option *ngFor="let region of regions$ | async" [value]="region">
           {{region}}
         </mat-option>

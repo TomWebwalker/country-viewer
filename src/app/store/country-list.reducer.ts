@@ -26,10 +26,14 @@ export const countryListReducer = createReducer(
   on(filterCountryList, (state, { payload }) => ({
     countries: state.countries,
     regions: state.regions,
-    visibleCountries: filterByName(state.countries, payload.name)
+    visibleCountries: filterCountries(state.countries, payload.name, payload.region)
   }))
 );
 
-function filterByName(countries: Country[], name: string): Country[] {
-  return countries.filter(country => country.name.common.toLowerCase().includes(name.toLowerCase()));
+function filterCountries(countries: Country[], name: string, region: string): Country[] {
+  const filteredByName = countries.filter(country => country.name.common.toLowerCase().includes(name.toLowerCase()));
+  if (region) {
+    return filteredByName.filter(country => country.region === region);
+  }
+  return filteredByName;
 }
