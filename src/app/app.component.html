@@ -18,9 +18,10 @@
 
   <ng-container *ngIf="countryList$ | async as countryList">
     <div class="content-wrapper">
+      <a href="" [routerLink]="['country', country.cca2]" *ngFor="let country of countryList">
       <app-country-card
-        *ngFor="let country of countryList"
         [country]="country"></app-country-card>
+      </a>
     </div>
   </ng-container>
 </div>

@@ -13,3 +13,9 @@
   grid-column-gap: 16px;
   grid-row-gap: 16px;
 }
+
+a {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+}

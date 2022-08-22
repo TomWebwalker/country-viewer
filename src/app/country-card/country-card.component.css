@@ -1,6 +1,15 @@
 :host {
   display: flex;
   flex-direction: column;
+  height: 100%;
+}
+
+:host:hover mat-card {
+  background-color: rgba(128, 128, 128, 0.35);
+
+}
+mat-card {
+  transition: 0.3s;
 }
 
 img {
