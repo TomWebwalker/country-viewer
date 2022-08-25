@@ -1,27 +1,23 @@
+<mat-toolbar>
+  <a href="" routerLink="" mat-icon-button><mat-icon>public</mat-icon></a>
+  <span>Country viewer</span>
+</mat-toolbar>
+
 <div class="container">
+  <app-search-form></app-search-form>
 
-  <form [formGroup]="form" style="display: flex">
-    <mat-form-field appearance="fill" style="flex: 1; margin-right: 8px">
-      <mat-label>Country name</mat-label>
-      <input matInput formControlName="name">
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>Region</mat-label>
-      <mat-select formControlName="region">
-        <mat-option [value]="null">All</mat-option>
-        <mat-option *ngFor="let region of regions$ | async" [value]="region">
-          {{region}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </form>
+  <mat-spinner *ngIf="loading$ | async"></mat-spinner>
 
-  <ng-container *ngIf="countryList$ | async as countryList">
-    <div class="content-wrapper">
-      <a href="" [routerLink]="['country', country.cca2]" *ngFor="let country of countryList">
-      <app-country-card
-        [country]="country"></app-country-card>
-      </a>
+  <mat-list>
+    <cdk-virtual-scroll-viewport itemSize="50">
+    <div @slideInOut *cdkVirtualFor="let country of countryList$ | async; last as last">
+    <mat-list-item>
+      <img matListAvatar [src]="country.flags.svg" alt="Flag">
+      <h3 matLine> {{country.name.common}} </h3>
+    </mat-list-item>
+    <mat-divider *ngIf="!last"></mat-divider>
     </div>
-  </ng-container>
+    </cdk-virtual-scroll-viewport>
+  </mat-list>
+
 </div>

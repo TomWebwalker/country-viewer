@@ -1,17 +1,19 @@
-import { createReducer, on } from "@ngrx/store";
+import { createReducer, createSelector, on } from "@ngrx/store";
 import { Country } from "../typings/country";
 import { fetchCountryListSuccess, filterCountryList } from "./country-list.actions";
 
 export interface CountryListStore {
   countries: Country[],
   visibleCountries: Country[],
-  regions: string[]
+  regions: string[],
+  loading: boolean,
 }
 
 export const initialState: CountryListStore = {
   countries: [],
   visibleCountries: [],
-  regions: []
+  regions: [],
+  loading: true,
 };
 
 export const countryListReducer = createReducer(
@@ -20,13 +22,15 @@ export const countryListReducer = createReducer(
     {
       countries: payload,
       regions: [...new Set(payload.map(({ region }) => region))],
-      visibleCountries: payload
+      visibleCountries: payload,
+      loading: false
     }
   )),
   on(filterCountryList, (state, { payload }) => ({
     countries: state.countries,
     regions: state.regions,
-    visibleCountries: filterCountries(state.countries, payload.name, payload.region)
+    visibleCountries: filterCountries(state.countries, payload.name, payload.region),
+    loading: false
   }))
 );
 
@@ -37,3 +41,8 @@ function filterCountries(countries: Country[], name: string, region: string): Co
   }
   return filteredByName;
 }
+
+export const selectCountryList = (state: { countryList: CountryListStore }) => state.countryList;
+
+
+export const selectLoading = createSelector(selectCountryList, (state: CountryListStore) => state.loading);

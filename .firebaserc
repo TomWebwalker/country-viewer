@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "country-viewer-73d32": {
+      "hosting": {
+        "country-viewer": [
+          "country-viewer-73d32"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "country-viewer-73d32"
+  }
+}

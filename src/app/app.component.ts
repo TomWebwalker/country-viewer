@@ -1,37 +1,26 @@
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { Component, inject, OnInit, ViewEncapsulation } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { debounceTime, map, Observable } from "rxjs";
-import { CountryListAction, CountryListStore } from "./store";
+import { map, Observable } from "rxjs";
+import { CountryListAction, CountryListStore, selectLoading } from "./store";
 import { Country } from "./typings/country";
-import { FormControl, FormGroup } from "@angular/forms";
+import { fadeAnimation, listAnimation, slideInOut } from "./utils/list-animation";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
-  encapsulation: ViewEncapsulation.None
+  animations: [slideInOut],
 })
 export class AppComponent implements OnInit {
+  private readonly store = inject( Store<{ countryList: CountryListStore }>);
   title = "country-viewer";
+  readonly countryList$ = this.store.select("countryList").pipe(map(store => store.visibleCountries));
+  readonly loading$ = this.store.select(selectLoading)
 
-  countryList$!: Observable<Country[]>;
-  regions$!: Observable<string[]>;
-  readonly form = new FormGroup({
-    name: new FormControl<string>(""),
-    region: new FormControl<string>("")
-  });
 
-  constructor(private readonly store: Store<{ countryList: CountryListStore }>) {
-    this.countryList$ = store.select("countryList").pipe(map(store => store.visibleCountries));
-    this.regions$ = store.select("countryList").pipe(map(store => store.regions));
-  }
 
   ngOnInit(): void {
     this.store.dispatch({ type: CountryListAction.FETCH });
-    this.form.valueChanges.pipe(debounceTime(500)).subscribe(payload => {
-      this.store.dispatch({ type: CountryListAction.FILTER, payload });
-    });
-
   }
 
 
