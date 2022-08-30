@@ -1,0 +1,23 @@
+<app-search-form></app-search-form>
+
+<div class="spinner-wrapper" *ngIf="(viewState$ | async) === 'LOADING'">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div class="msg-wrapper" *ngIf="(viewState$ | async) === 'ERROR'">
+  Error occurred. Try again later.
+</div>
+
+<mat-list>
+  <cdk-virtual-scroll-viewport itemSize="25" appendOnly>
+    <a href="" [routerLink]="country.cca2" @slideInOut
+       *cdkVirtualFor="let country of countryList$ | async; last as last">
+      <mat-list-item>
+        <img matListAvatar [src]="country.flags.svg" alt="Flag">
+        <h3 matLine> {{country.name.common}} </h3>
+      </mat-list-item>
+      <mat-divider *ngIf="!last"></mat-divider>
+    </a>
+  </cdk-virtual-scroll-viewport>
+</mat-list>
+

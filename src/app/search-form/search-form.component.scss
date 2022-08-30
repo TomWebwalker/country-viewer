@@ -1,13 +1,11 @@
 form {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   padding-left: 8px;
   padding-right: 8px;
 }
 
-mat-button-toggle-group {
-  display: flex;
-  mat-button-toggle {
-    flex: 1;
-  }
+mat-form-field:first-child {
+  flex: 1;
+  margin-right: 8px;
 }

@@ -15,12 +15,13 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatInputModule } from "@angular/material/input";
 import { ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
-import { SearchFormComponent } from './search-form/search-form.component';
+import { SearchFormComponent } from "./search-form/search-form.component";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatListModule } from "@angular/material/list";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { HomeComponent } from "./home/home.component";
 
 
 @NgModule({
@@ -46,7 +47,16 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
     MatSelectModule,
     MatInputModule,
     ReactiveFormsModule,
-    RouterModule.forRoot([]),
+    RouterModule.forRoot([
+      {
+        path: "",
+        component: HomeComponent
+      },
+      {
+        path: ':cca2',
+        loadComponent: () => import('./country-card/country-card.component').then(c => c.CountryCardComponent)
+      }
+    ]),
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,

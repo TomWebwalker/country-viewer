@@ -1,23 +1,19 @@
 <mat-toolbar>
-  <a href="" routerLink="" mat-icon-button><mat-icon>public</mat-icon></a>
-  <span>Country viewer</span>
+  <a href="" routerLink="">
+    <button type="button" mat-icon-button>
+      <mat-icon>public</mat-icon>
+    </button>
+    <span>Country viewer</span>
+  </a>
+  <button (click)="triggerThemeHandler()" type="button" mat-icon-button>
+    <mat-icon>{{ darkMode ? 'light_mode' : 'dark_mode' }}</mat-icon>
+  </button>
 </mat-toolbar>
 
 <div class="container">
-  <app-search-form></app-search-form>
-
-  <mat-spinner *ngIf="loading$ | async"></mat-spinner>
-
-  <mat-list>
-    <cdk-virtual-scroll-viewport itemSize="50">
-    <div @slideInOut *cdkVirtualFor="let country of countryList$ | async; last as last">
-    <mat-list-item>
-      <img matListAvatar [src]="country.flags.svg" alt="Flag">
-      <h3 matLine> {{country.name.common}} </h3>
-    </mat-list-item>
-    <mat-divider *ngIf="!last"></mat-divider>
-    </div>
-    </cdk-virtual-scroll-viewport>
-  </mat-list>
-
+  <div class="visited-wrapper" *ngIf="(visited$ | async) as visited">
+    <p>Recent:</p> <a *ngFor="let country of visited" mat-flat-button href=""
+                      [routerLink]="['/',country.cca2]">{{ country.name }}</a>
+  </div>
+  <router-outlet></router-outlet>
 </div>

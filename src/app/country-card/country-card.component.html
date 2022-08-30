@@ -1,6 +1,35 @@
-<mat-card>
+<mat-card *ngIf="(country$ | async) as country">
   <mat-card-header>
     <mat-card-title>{{ country.name.common }}</mat-card-title>
+    <mat-card-subtitle>{{ country.region }}</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image [src]="country.flags.svg" alt="Country flag">
+  <img height="200" [src]="country.flags.svg" alt="Flag">
+  <mat-card-content>
+    <table>
+      <tr>
+        <th>Name:</th>
+        <td>{{ country.name.common }}</td>
+      </tr>
+      <tr>
+        <th>Official name:</th>
+        <td>{{ country.name.official }}</td>
+      </tr>
+      <tr>
+        <th>Capital:</th>
+        <td>{{ country.capital.join(', ') }}</td>
+      </tr>
+      <tr>
+        <th>Languages:</th>
+        <td>{{ getLanguages(country.languages) }}</td>
+      </tr>
+      <tr>
+        <th>Population:</th>
+        <td>{{ country.population }}</td>
+      </tr>
+    </table>
+  </mat-card-content>
+  <mat-card-actions>
+    <small>Borders:</small>
+    <a *ngFor="let border of borders$ | async" href="" [routerLink]="['/',border.cca2]" mat-button>{{ border.name }}</a>
+  </mat-card-actions>
 </mat-card>
